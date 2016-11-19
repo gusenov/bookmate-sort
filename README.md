@@ -1,2 +1,4 @@
-# BookmateSort
-Bookmate Sort is a Chrome extension to enhance the https://bookmate.com experience.
+# Features
+
+* Allow sort books by page count.
+* Allow to see all books in one massive list.
