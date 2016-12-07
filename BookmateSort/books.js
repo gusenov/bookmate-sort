@@ -54,7 +54,7 @@ function loadBooks(type){
     createTbl(availableBooks);
   }
 
-  dlBooks(type, 512, more, noMore);
+  dlBooks(type, 256, more, noMore);
 }
 
 document.addEventListener("DOMContentLoaded", function () {
