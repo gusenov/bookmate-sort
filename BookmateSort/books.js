@@ -1,6 +1,5 @@
-var availableBooks;
 
-function createTbl(books) {
+function createTbl(books, type) {
   var tbl = document.createElement('table');
   tbl.style.width = '100%';
   tbl.setAttribute('border', '1');
@@ -8,6 +7,11 @@ function createTbl(books) {
   var tbdy = document.createElement('tbody');
   var tr, td, a;
   for (var i = 0; i < books.length; i++) {
+      if (books[i].can_be_read === false) { continue; }
+      if (type.localeCompare('premium') === 0 && books[i].labels[0].kind.localeCompare('premium') !== 0) { continue; }
+      if (type.localeCompare('ru') === 0 && books[i].lang.localeCompare('ru') !== 0) { continue; }
+      if (type.localeCompare('en') === 0 && books[i].lang.localeCompare('en') !== 0) { continue; }
+      
       tr = document.createElement('tr');
 
       td = document.createElement('td');
@@ -40,7 +44,8 @@ function createTbl(books) {
 }
 
 function loadBooks(type){
-  var numOfBooksLoaded = 0;
+  var numOfBooksLoaded = 0,
+      dl_type = type;
 
   function more(booksLoaded) {
     numOfBooksLoaded += booksLoaded.length;
@@ -48,13 +53,18 @@ function loadBooks(type){
   }
 
   function noMore(booksLoaded) {
-    availableBooks = sortArrByKey(booksLoaded, 'paper_pages');
     document.getElementById('status').innerText = "It's fine! Loaded " + numOfBooksLoaded + " books from the Bookmate. Loading complete.";
-
-    createTbl(availableBooks);
+    var resultBooks = [];
+    resultBooks = sortArrByKey(booksLoaded, 'paper_pages');
+    // document.write(JSON.stringify(resultBooks));
+    createTbl(resultBooks, type);
   }
 
-  dlBooks(type, 256, more, noMore);
+  if (type.localeCompare('premium') === 0
+        || type.localeCompare('ru') === 0
+        || type.localeCompare('en') === 0) { dl_type = 'all'; }
+    
+  dlBooks(dl_type, 256, more, noMore);
 }
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -72,6 +82,15 @@ document.addEventListener("DOMContentLoaded", function () {
       } else if (currentUrl.endsWith('#to-read')) {
         loadBooks('read_later');
         document.title = "to-read";
+      } else if (currentUrl.endsWith('#premium')) {
+        loadBooks('premium');
+        document.title = "premium";
+      } else if (currentUrl.endsWith('#ru')) {
+        loadBooks('ru');
+        document.title = "ru";
+      } else if (currentUrl.endsWith('#en')) {
+        loadBooks('en');
+        document.title = "en";
       }
     } catch (e) {
         console.log(e);

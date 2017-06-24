@@ -19,6 +19,18 @@
       document.getElementById('bookshelves').addEventListener('click', function () {
         chrome.tabs.create({ url: 'bookshelves.html' });
       });
+        
+      document.getElementById('premium').addEventListener('click', function () {
+        chrome.tabs.create({ url: 'books.html#premium' });
+      });
+        
+      document.getElementById('ru').addEventListener('click', function () {
+        chrome.tabs.create({ url: 'books.html#ru' });
+      });
+      document.getElementById('en').addEventListener('click', function () {
+        chrome.tabs.create({ url: 'books.html#en' });
+      });
+        
     });
 
 }());
