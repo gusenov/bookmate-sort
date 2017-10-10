@@ -1,0 +1,12 @@
+{
+  "description": "Enhances the https://bookmate.com experience.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gusenov/bookmate-sort.git"
+  },
+  "homepage": "https://github.com/gusenov/bookmate-sort#readme",
+  "license": "MIT",
+  "dependencies": {
+    "seq-exec": "0.0.1"
+  }
+}
